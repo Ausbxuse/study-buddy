@@ -1,0 +1,178 @@
+@font-face {
+  font-family: "Pacifico";
+  src: url("../public/fonts/Pacifico-Regular.ttf")
+}
+
+.name {
+  font-family: "Pacifico";
+  font-size: 1.3rem;
+}
+.topHint {
+  background: linear-gradient(to right, #61afef, #e379d8);
+
+  height: 0.2em;
+  width: 100%;
+}
+
+.headerContainer {
+  position: fixed;
+  top: 0;
+  z-index: 4;
+}
+
+.navContainer {
+  /* max-width: 1300px; */
+  display: flex;
+  align-items: center;
+  height: 3em;
+  width: 100vw;
+  background-color: rgba(25, 24, 32, 1);
+  /* backdrop-filter: blur(0.25em); */
+  box-shadow: 1px 1px 1px rgba(25, 24, 32, 0.2)
+}
+
+.navHomeButton {
+  margin: 0em 4em;
+  padding: 0.12em;
+  background-color: whitesmoke;
+  border-radius: 0.24em;
+  /* width: 15%; */
+  transition: all 200ms ease;
+
+  background-color: #ffffff;
+  background-image: var(--gradient2);
+  background-clip: text;
+
+  background-size: 400%;
+  background-position: left;
+  font-weight: 900;
+  font-style: italic;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* use to be an id named nav-home-button-blug*/
+  margin-right: 0em;
+}
+
+/* TODO: smooth transition when unhovering */
+#nav-home-button:hover {
+  animation: bg-animation 2s infinite alternate;
+}
+
+.navItems {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  list-style: none;
+}
+
+.navItems li a {
+  color: #ffffff;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.navItems li a:hover {
+  border-bottom: 0.12em solid #ffffff22;
+  /* color: #84ceeb; */
+  transition: color 200ms ease-in-out;
+}
+
+.mobileNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 3em;
+  padding: 0 1em;
+}
+
+.mobileNavList {
+  position: fixed;
+  /* leave room for nav */
+  top: 3.2em;
+  left: 100%;
+  min-height: 100vh;
+  width: 100vw;
+  z-index: 3;
+  padding: 0rem 0em 8rem 0rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s ease;
+  background-color: var(--color-bg-secondary);
+}
+
+.mobileNavListActive {
+  position: fixed;
+  /* leave room for nav */
+  top: 3.2em;
+  left: 0;
+  min-height: 100vh;
+  width: 100vw;
+  z-index: 3;
+  padding: 0rem 0em 8rem 0rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s ease;
+  background-color: rgba(0,0,0,0.8);
+  backdrop-filter: blur(50px);
+}
+
+.mobileNavList li {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin: 1.5em auto;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.mobileNavListActive li {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin: 1.5em auto;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.logo {
+  border-radius: 50%;
+}
+
+@media only screen and (min-width: 767px) {
+  .mobileNav {
+    display: none;
+  }
+  .mobileNavList {
+    display: none;
+  }
+  .mobileNavListActive {
+    display: none;
+  }
+
+}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+}
+
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {
+  .navItems {
+    display: none;
+    height: 0%;
+  }
+}
+
+@media only screen and (max-width: 980px) and (max-height: 618px) {
+}
+
+/* iphone */
+@media only screen and (max-width: 980px) and (min-height: 618px) {
+}
