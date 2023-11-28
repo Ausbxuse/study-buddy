@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ChatServer {
-    private int port = 6789;
+    private int port;
     protected Map<String, ClientHandler> clients;
 
     public ChatServer(int port) {

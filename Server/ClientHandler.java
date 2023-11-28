@@ -1,5 +1,4 @@
 
-
 import java.io.*;
 import java.net.Socket;
 import java.util.regex.Matcher;
@@ -37,13 +36,15 @@ public class ClientHandler extends Thread {
                 clientMessage = reader.readLine();
                 if (clientMessage.startsWith("@")) {
                     String[] parts = clientMessage.split(" ", 2);
-                    String targetUser = parts[0].substring(1);
-                    server.sendPrivateMessage(parts[1], targetUser);
+                    if (parts.length > 1) {
+                        String targetUser = parts[0].substring(1);
+                        String personalizedMessage = "[" + userName + " (private)]: " + parts[1];
+                        server.sendPrivateMessage(personalizedMessage, targetUser);
+                    }
                 } else {
                     serverMessage = "[" + userName + "]: " + clientMessage;
                     server.broadcast(serverMessage, this);
                 }
-
             } while (!clientMessage.equals("bye"));
 
             server.removeClient(userName, this);

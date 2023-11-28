@@ -1,4 +1,3 @@
-
 import java.net.*;
 import java.io.*;
 import java.util.Scanner;
@@ -72,10 +71,7 @@ class ReadThread extends Thread {
             try {
                 String response = reader.readLine();
                 System.out.println("\n" + response);
-
-                if (client.getUserName() != null) {
-                    System.out.print("[" + client.getUserName() + "]: ");
-                }
+                
             } catch (IOException ex) {
                 System.out.println("Error reading from server: " + ex.getMessage());
                 ex.printStackTrace();
