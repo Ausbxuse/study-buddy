@@ -1,15 +1,16 @@
+
 public class Account {
 	private String username;
     private String password;
     private String firstname;
     private String lastname;
     private String prefname;
-    private String shortterm;
-    private String longterm;
-    private String gpa;
-    private String year;
+    private boolean shortterm;
+    private boolean longterm;
+    private Double gpa;
+    private Integer year;
 	
-	public Account(String username, String password, String firstname, String lastname, String prefname, String shortterm, String longterm, String gpa, String year) {
+	public Account(String username, String password, String firstname, String lastname, String prefname, boolean shortterm, boolean longterm, Double gpa, Integer year) {
 		this.username = username;
 		this.password = password;
         this.firstname = firstname;
@@ -36,16 +37,16 @@ public class Account {
     public String getPrefname() {
 		return prefname;
 	}
-    public String getShortterm() {
+    public boolean getShortterm() {
 		return shortterm;
 	}
-    public String getLongterm() {
+    public boolean getLongterm() {
 		return longterm;
 	}
-    public String getGpa() {
+    public Double getGpa() {
 		return gpa;
 	}
-    public String getYear() {
+    public Integer getYear() {
 		return year;
 	}
 	
