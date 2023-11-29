@@ -118,8 +118,6 @@ export default function Home() {
             Create your own study room.
           </p>
         </a>
-
-
         
       </div>
     </main>

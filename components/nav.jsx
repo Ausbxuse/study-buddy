@@ -6,7 +6,6 @@ import { Sling as Hamburger } from 'hamburger-react'
 
 export default function Nav({ children }) {
   const [showMobileNav, setShowMobileNav] = useState(false);
-
   return (
     <>
       <div className={styles.headerContainer}>
@@ -14,13 +13,16 @@ export default function Nav({ children }) {
         <nav className={styles.navContainer}>
           <ul className={styles.navItems}>
 
-            <Link href="/">
+            {/* <Link href="/">
               <Image
                 src="/logo.png"
                 className={styles.logo}
                 width={36}
                 height={36}
               />
+            </Link> */}
+            <Link href="/">
+              <span className={`mb-3 text-2xl font-semibold`}>Study Buddy</span>
             </Link>
   
             <li><Link href="/">Home</Link></li>
