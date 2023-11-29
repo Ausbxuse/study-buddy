@@ -9,7 +9,7 @@ export default function Login() {
   <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
     <script src="app/login/login.js"></script>
     <Nav></Nav>
-    <div class="w-full max-w-xs">
+    <div class="w-full max-w-sm">
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 center" onsubmit="return login(this)">
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
@@ -29,7 +29,10 @@ export default function Login() {
           login(document.getElementsByName("username").value,document.getElementsByName("password").value)}}>
           Sign In
         </button>
-        <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+        <a type="button" class="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" href="/signup">
+          Register
+        </a>
+        <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" onClick={(e) => {alert("Haha, too bad")}}>
           Forgot Password?
         </a>
         </div>
