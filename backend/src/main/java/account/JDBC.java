@@ -104,7 +104,7 @@ public class JDBC {
         String us = rs.getString("username");
         if (us.equals(username)) {
           u = new Account(us, rs.getString("password"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("prefname"),
-            rs.getBoolean("shorterm"), rs.getBoolean("longterm"), rs.getDouble("gpa"), rs.getInt("year"));
+            rs.getBoolean("shortterm"), rs.getBoolean("longterm"), rs.getDouble("gpa"), rs.getInt("year"));
         }
       }
 
