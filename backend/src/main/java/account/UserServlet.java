@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 public class UserServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String username = request.getParameter("username");
     String action = request.getParameter("action");
     JDBC jdbc = new JDBC();
