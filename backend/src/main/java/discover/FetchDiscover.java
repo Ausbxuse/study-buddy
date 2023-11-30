@@ -27,7 +27,16 @@ public class FetchDiscover extends HttpServlet {
         	System.out.println(cnfe.getMessage());
         }
 
-        response.getWriter().println(json);
+
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST");
+        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization");
+        response.getWriter().write(json); 
+
+        //response.getWriter().println(json);
 
         
     }
