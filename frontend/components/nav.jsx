@@ -22,12 +22,12 @@ export default function Nav({ children }) {
               />
             </Link> */}
             <Link href="/">
-              <span className={`mb-3 text-2xl font-semibold`}>Study Buddy</span>
+              <span className={`mb-3 text-2xl font-semibold text-white dark:text-black `}>Study Buddy</span>
             </Link>
 
             <li><Link href="/">Home</Link></li>
             <li><Link href="/discover">Discover</Link></li>
-            <li><Link href="/studyhall">Study Hall</Link></li>
+            <li><Link href="/studyHall">Study Hall</Link></li>
             <li><Link href="/login">Login</Link></li>
           </ul>
           <div className={styles.mobileNav}>

@@ -31,7 +31,7 @@ export default function Login() {
         <a type="button" class="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" href="/signup">
           Register
         </a>
-        <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" onClick={(e) => {alert("Haha, too bad")}}>
+        <a class="inline-block align-baseline font-semibold text-sm text-blue-500 hover:text-blue-800" onClick={(e) => {alert("Haha, too bad")}}>
           Forgot Password?
         </a>
         </div>
