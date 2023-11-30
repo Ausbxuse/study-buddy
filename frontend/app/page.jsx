@@ -44,8 +44,8 @@ export default function Home() {
         
 
         <a
-          href="/chatroom"
-          onClick="return handleJoinRoom(this)"
+          onClick={(e) => handleJoinRoom(e, roomCode)}
+          
           className="group lg:row-span-2 lg:col-span-2 rounded-lg border border-transparent px-5 py-4 transition-colors border-gray-300 bg-gray-100 dark:border-neutral-700 dark:bg-neutral-800/30"
           target="_blank"
           rel="noopener noreferrer"
@@ -89,7 +89,8 @@ export default function Home() {
         </a>
 
         <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+          // href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+          href="/friendList"
           className="group lg:row-span-2 rounded-lg border border-transparent px-5 py-4 transition-colors border-gray-300 bg-gray-100 dark:border-neutral-700 dark:bg-neutral-800/30"
           target="_blank"
           rel="noopener noreferrer"
@@ -127,10 +128,16 @@ export default function Home() {
   )
 }
 
-function handleJoinRoom(roomCode){
-  window.location.href="/chatroom";
-  var result = postData("http://localhost:8080/TemporaryServer/joinRoom", {roomCode});
+function handleJoinRoom(event, roomCode) {
+  event.preventDefault(); // Prevent the default behavior of the link
+
+  if (roomCode != "") {
+    window.location.href = "/chatroom";
+  } else {
+    var result = postData("http://localhost:8080/TemporaryServer/joinRoom", { roomCode });
+  }
 }
+
 async function postData(url = "", data = {}) {
     const response = await fetch(url, {
         method: "POST",
