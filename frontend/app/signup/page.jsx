@@ -32,10 +32,10 @@ export default function Signup() {
             <div id="error-message" class="text-sm text-red-500" style={{ display: 'block' }}>Error message</div>
           </div>
           <div class="flex items-center justify-between">
-            <button type="submit" class="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <button type="submit" className="btn bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
               Sign Up
             </button>
-            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/login">
+            <a class="inline-block align-baseline font-regular text-xs text-blue-500 hover:text-blue-800" href="/login">
               Already have an account? Login
             </a>
           </div>
