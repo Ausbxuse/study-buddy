@@ -13,14 +13,6 @@ export default function Nav({ children }) {
         <nav className={styles.navContainer}>
           <ul className={styles.navItems}>
 
-            {/* <Link href="/">
-              <Image
-                src="/logo.png"
-                className={styles.logo}
-                width={36}
-                height={36}
-              />
-            </Link> */}
             <Link href="/">
               <span className={`mb-3 text-2xl font-semibold text-white dark:text-black `}>Study Buddy</span>
             </Link>

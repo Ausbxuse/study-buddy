@@ -7,15 +7,16 @@ export default function Home() {
   const [roomCode, setRoomCode] = useState('');
   const inputRef = useRef(null);
 
-  const handleJoinRoom = (e) => {
-    e.preventDefault();
+  // const handleJoinRoom = (e) => {
+  //   e.preventDefault();
 
-    if (document.activeElement === inputRef.current) {
-      return;
-    }
-    // handle join room action using the roomCode
-    console.log('Joining room with code:', roomCode);
-  };
+  //   if (document.activeElement === inputRef.current) {
+  //     return;
+  //   }
+  //   // handle join room action using the roomCode
+  //   console.log('Joining room with code:', roomCode);
+
+  // };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-start p-32 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
@@ -43,8 +44,8 @@ export default function Home() {
         
 
         <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          onClick={handleJoinRoom}
+          href="/chatroom"
+          onClick="return handleJoinRoom(this)"
           className="group lg:row-span-2 lg:col-span-2 rounded-lg border border-transparent px-5 py-4 transition-colors border-gray-300 bg-gray-100 dark:border-neutral-700 dark:bg-neutral-800/30"
           target="_blank"
           rel="noopener noreferrer"
@@ -124,4 +125,26 @@ export default function Home() {
       </div>
     </main>
   )
+}
+
+function handleJoinRoom(roomCode){
+  window.location.href="/chatroom";
+  var result = postData("http://localhost:8080/TemporaryServer/joinRoom", {roomCode});
+}
+async function postData(url = "", data = {}) {
+    const response = await fetch(url, {
+        method: "POST",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {"Content-Type": "application/json",},
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+        body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    if(result.state == "success"){
+      window.location.href = '/chatroom';
+    }else{
+      alert("Incorrect room code information");
+    }
 }

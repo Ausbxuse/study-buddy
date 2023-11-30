@@ -24,14 +24,14 @@ export default function Login() {
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="password" type="password" placeholder="******************"/>
       </div>
       <div class="flex items-center justify-between">
-        <button type="button" class="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={(e) => {
+        <button type="button" className="btn bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={(e) => {
           login(document.getElementsByName("username").value,document.getElementsByName("password").value)}}>
           Sign In
         </button>
-        <a type="button" class="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" href="/signup">
+        <a type="button" className="btn bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline" href="/signup">
           Register
         </a>
-        <a class="inline-block align-baseline font-semibold text-sm text-blue-500 hover:text-blue-800" onClick={(e) => {alert("Haha, too bad")}}>
+        <a class="inline-block align-baseline font-normal text-sm text-blue-500 hover:text-blue-800" onClick={(e) => {alert("Haha, too bad")}}>
           Forgot Password?
         </a>
         </div>
