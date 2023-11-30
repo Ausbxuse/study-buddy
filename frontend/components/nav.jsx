@@ -24,7 +24,7 @@ export default function Nav({ children }) {
             <Link href="/">
               <span className={`mb-3 text-2xl font-semibold`}>Study Buddy</span>
             </Link>
-  
+
             <li><Link href="/">Home</Link></li>
             <li><Link href="/discover">Discover</Link></li>
             <li><Link href="/studyhall">Study Hall</Link></li>
@@ -32,12 +32,14 @@ export default function Nav({ children }) {
           </ul>
           <div className={styles.mobileNav}>
             <Link href="/">
+              {/*              
               <Image
                 src="/snappy-logo.png"
                 className={styles.logo}
                 width={36}
                 height={36}
-              />
+              /> 
+              */}
             </Link>
             <Link href="/" className={styles.name}>
               Home
@@ -50,7 +52,8 @@ export default function Nav({ children }) {
         <div className={!showMobileNav ? styles.mobileNavList : styles.mobileNavListActive}>
           <li><Link href="/discover">Discover</Link></li>
           <li><Link href="/studyhall">Study Hall</Link></li>
-          <li><Link href="/login">Login</Link></li>
+          <li><Link href="/login">Login/Signup</Link></li>
+          <li><Link href="/account">Account</Link></li>
         </div>
       </div>
 

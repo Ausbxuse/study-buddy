@@ -67,7 +67,7 @@ export default function AccountPage() {
                   name={key}
                   value={value}
                   onChange={handleChange}
-                  className="border border-gray-300 p-1 rounded"
+                  className="text-black border border-gray-300 p-1 rounded"
                 />
               ) : (
                 <span>{value}</span>
