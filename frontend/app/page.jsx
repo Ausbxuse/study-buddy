@@ -58,6 +58,7 @@ export default function Home() {
           </h2>
           <form>
             <input
+              required
               type="text"
               placeholder="Enter room code"
               value={roomCode}
