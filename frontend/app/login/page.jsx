@@ -43,7 +43,7 @@ export default function Login() {
 }
 
 function login(username, password){
-  var result = postData("http://localhost:8080/TemporaryServer/submitForm", {username,password});
+  var result = postData("http://localhost:8080/TemporaryServer/login", {username,password});
 }
 async function postData(url = "", data = {}) {
     const response = await fetch(url, {
