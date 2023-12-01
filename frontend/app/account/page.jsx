@@ -21,7 +21,7 @@ export default function AccountPage() {
   }, []);
 
   const fetchUserInfo = async () => {
-    const response = await fetch('http://localhost:8080/api/user');
+    const response = await fetch('http://localhost:8080/TempServer/UserServlet?username=someUsername&action=someAction');
     const data = await response.json();
     setUserInfo(data);
   };
@@ -31,7 +31,7 @@ export default function AccountPage() {
   };
 
   const handleSave = async () => {
-    const response = await fetch('http://localhost:8080/api/user', {
+    const response = await fetch('http://localhost:8080/TempServer/UserServlet?username=someUsername&action=someAction', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

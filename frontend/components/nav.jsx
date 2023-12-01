@@ -7,16 +7,16 @@ import { Sling as Hamburger } from 'hamburger-react'
 export default function Nav({ children }) {
   const [showMobileNav, setShowMobileNav] = useState(false);
   const loginToggle = () => {
-    if(getCookie("login") == "true"){
+    if (getCookie("login") == "true") {
       return;
-    }else{
+    } else {
       return <li><Link href="/login">Login/Signup</Link></li>
     }
   }
   const loginToggle2 = () => {
-    if(getCookie("login") == "true"){
+    if (getCookie("login") == "true") {
       return;
-    }else{
+    } else {
       return <li><Link href="/login">Login</Link></li>
     }
   }
@@ -85,7 +85,7 @@ function getCookie(cname) {
   let name = cname + "=";
   let decodedCookie = decodeURIComponent(document.cookie);
   let ca = decodedCookie.split(';');
-  for(let i = 0; i <ca.length; i++) {
+  for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
     while (c.charAt(0) == ' ') {
       c = c.substring(1);

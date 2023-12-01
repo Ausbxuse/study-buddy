@@ -1,4 +1,4 @@
-
+package account;
 import java.sql.*;
 
 public class JDBC {
@@ -9,7 +9,7 @@ public class JDBC {
     ResultSet rs = null;
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
-      conn = DriverManager.getConnection("jdbc:mysql://localhost/JoesTable?user=root&password=fillin");
+      conn = DriverManager.getConnection("jdbc:mysql://localhost/ProjectTesting?user=zhenyu&password=1234567890");
       st2 = conn.createStatement();
       rs = st2.executeQuery("SELECT username FROM Users u");
       while (rs.next()) {
