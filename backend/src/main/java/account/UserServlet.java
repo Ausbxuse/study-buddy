@@ -1,3 +1,4 @@
+package account;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,11 @@ public class UserServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    // Set CORS headers
+    response.setHeader("Access-Control-Allow-Origin", "*"); // Allow any origin
+    response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS"); // Allowed methods
+    response.setHeader("Access-Control-Allow-Headers", "Content-Type"); // Allowed headers
+
     String username = request.getParameter("username");
     String action = request.getParameter("action");
     JDBC jdbc = new JDBC();

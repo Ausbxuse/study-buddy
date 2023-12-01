@@ -14,16 +14,16 @@ import com.google.gson.Gson;
 
 @WebServlet("/RoomsServlet")
 public class RoomsServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/json");
-        PrintWriter out = resp.getWriter();
+  private static final long serialVersionUID = 1L;
 
-        Map<String, Integer> rooms = ChatEndpoint.getRoomCounts();
-        System.out.println(rooms);
-        // Convert the rooms map to JSON
-        String json = new Gson().toJson(rooms);
-        out.println(json);
-    }
+  protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    resp.setContentType("application/json");
+    PrintWriter out = resp.getWriter();
+
+    Map<String, Integer> rooms = ChatEndpoint.getRoomCounts();
+    System.out.println(rooms);
+    // Convert the rooms map to JSON
+    String json = new Gson().toJson(rooms);
+    out.println(json);
+  }
 }
