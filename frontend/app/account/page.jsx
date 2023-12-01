@@ -4,6 +4,36 @@ import Image from 'next/image';
 import Nav from '../../components/nav';
 import '../globals.css';
 
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+async function getData(url = "", params = {}) {
+  // Construct query string
+  const queryString = new URLSearchParams(params).toString();
+  const fullUrl = `${url}?${queryString}`;
+
+  return await fetch(fullUrl, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  // .then(response => response.json());
+}
+
 export default function AccountPage() {
   const [userInfo, setUserInfo] = useState({
     name: '',
@@ -17,13 +47,23 @@ export default function AccountPage() {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    // fetchUserInfo();
+    fetchUserInfo();
   }, []);
 
   const fetchUserInfo = async () => {
-    const response = await fetch('http://localhost:8080/TempServer/UserServlet?username=someUsername&action=someAction');
-    const data = await response.json();
-    setUserInfo(data);
+    getData("http://localhost:8080/Project-testing/UserServlet", {
+      action: "Info",
+      uid: getCookie("uid"),
+    })
+      .then(response => {
+        console.log(response)
+        return response.json();
+      }).then(data => {
+        console.log(data)
+        setUserInfo(data);
+      })
+      .catch(error => {
+      });
   };
 
   const handleEdit = () => {
@@ -31,19 +71,39 @@ export default function AccountPage() {
   };
 
   const handleSave = async () => {
-    const response = await fetch('http://localhost:8080/TempServer/UserServlet?username=someUsername&action=someAction', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userInfo),
-    });
+    getData("http://localhost:8080/Project-testing/UserServlet", {
+      action: "Info",
+      uid: getCookie("uid"),
+    })
+      .then(response => {
+        console.log(response)
+        return response.json();
+      }).then(data => {
+        console.log(data)
+        setUserInfo(data);
+      })
+      .catch(error => {
+      });
+
+    const response = getData("http://localhost:8080/Project-testing/UserServlet", {
+      action: "Modify",
+      uid: getCookie("uid"),
+    })
+
+    response.then(response => {
+      console.log(response)
+      return response.json();
+    }).then(data => {
+      console.log(data)
+      setUserInfo(data);
+    })
+      .catch(error => {
+      });
 
     if (response.ok) {
       setIsEditing(false);
       fetchUserInfo();
     } else {
-      // TODO: handle errors
     }
   };
 

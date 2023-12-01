@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef} from 'react';
+import React, { useState, useRef } from 'react';
 import Image from 'next/image'
 import Nav from '../components/nav'
 
@@ -7,9 +7,9 @@ export default function Home() {
   const [roomCode, setRoomCode] = useState('');
   const inputRef = useRef(null);
   const authSection = () => {
-    if(getCookie("login") == "true"){
+    if (getCookie("login") == "true") {
       return <>
-      <a
+        <a
           // href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
           href="discover"
           className="group lg:col-span-2 lg:row-span-2 rounded-lg border border-transparent px-5 py-4 transition-colors border-gray-300 bg-gray-100 dark:border-neutral-700 dark:bg-neutral-800 dark:bg-opacity-30"
@@ -62,7 +62,7 @@ export default function Home() {
           </p>
         </a>
       </>;
-    }else{
+    } else {
       return;
     }
   }
@@ -100,11 +100,9 @@ export default function Home() {
           </p>
         </a>
 
-        
-
         <a
           onClick={(e) => handleJoinRoom(e, roomCode)}
-          
+
           className="group lg:row-span-2 lg:col-span-2 rounded-lg border border-transparent px-5 py-4 transition-colors border-gray-300 bg-gray-100 dark:border-neutral-700 dark:bg-neutral-800/30"
           target="_blank"
           rel="noopener noreferrer"
@@ -131,7 +129,7 @@ export default function Home() {
         </a>
 
         {authSection()}
-        
+
       </div>
     </main>
   )
@@ -148,28 +146,28 @@ function handleJoinRoom(event, roomCode) {
 }
 
 async function postData(url = "", data = {}) {
-    const response = await fetch(url, {
-        method: "POST",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {"Content-Type": "application/json",},
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
-        body: JSON.stringify(data),
-    });
-    const result = await response.json();
-    if(result.state == "success"){
-      window.location.href = '/chatroom';
-    }else{
-      alert("Incorrect room code information");
-    }
+  const response = await fetch(url, {
+    method: "POST",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: { "Content-Type": "application/json", },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify(data),
+  });
+  const result = await response.json();
+  if (result.state == "success") {
+    window.location.href = '/chatroom';
+  } else {
+    alert("Incorrect room code information");
+  }
 }
 
 function getCookie(cname) {
   let name = cname + "=";
   let decodedCookie = decodeURIComponent(document.cookie);
   let ca = decodedCookie.split(';');
-  for(let i = 0; i <ca.length; i++) {
+  for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
     while (c.charAt(0) == ' ') {
       c = c.substring(1);
