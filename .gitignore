@@ -33,3 +33,15 @@
 # typescript
 /frontend/*.tsbuildinfo
 /frontend/next-env.d.ts
+.next/.DS_Store
+.next/cache/.DS_Store
+.next/cache/webpack/.DS_Store
+.next/server/.DS_Store
+.next/static/.DS_Store
+.next/static/chunks/.DS_Store
+.next/static/webpack/.DS_Store
+.next/types/.DS_Store
+backend/.DS_Store
+backend/src/.DS_Store
+backend/src/main/.DS_Store
+frontend/app/.DS_Store

@@ -20,6 +20,20 @@ export default function Nav({ children }) {
       return <li><Link href="/login">Login</Link></li>
     }
   }
+  const loginToggle3 = () => {
+    if(getCookie("login") == "true"){
+      return <li><Link href="/discover">Discover</Link></li>;
+    }else{
+      return;
+    }
+  }
+  const loginToggle4 = () => {
+    if(getCookie("login") == "true"){
+      return <li><Link href="/discover">Discover</Link></li>;
+    }else{
+      return;
+    }
+  }
   return (
     <>
       <div className={styles.headerContainer}>
@@ -32,7 +46,7 @@ export default function Nav({ children }) {
             </Link>
 
             <li><Link href="/">Home</Link></li>
-            <li><Link href="/discover">Discover</Link></li>
+            {loginToggle3()}
             <li><Link href="/studyHall">Study Hall</Link></li>
             {loginToggle2()}
           </ul>
@@ -56,7 +70,7 @@ export default function Nav({ children }) {
           </div>
         </nav>
         <div className={!showMobileNav ? styles.mobileNavList : styles.mobileNavListActive}>
-          <li><Link href="/discover">Discover</Link></li>
+          {loginToggle4()}
           <li><Link href="/studyhall">Study Hall</Link></li>
           {loginToggle()}
           <li><Link href="/account">Account</Link></li>
