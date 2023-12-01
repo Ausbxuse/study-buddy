@@ -8,14 +8,14 @@ export default function Nav({ children }) {
   const [showMobileNav, setShowMobileNav] = useState(false);
   const loginToggle = () => {
     if (getCookie("login") == "true") {
-      return;
+      return <li><Link href="." onClick={(e) => {eraseCookie("login")}}>Logout</Link></li>;
     } else {
       return <li><Link href="/login">Login/Signup</Link></li>
     }
   }
   const loginToggle2 = () => {
     if (getCookie("login") == "true") {
-      return;
+      return <li><Link href="." onClick={(e) => {eraseCookie("login")}}>Logout</Link></li>;
     } else {
       return <li><Link href="/login">Login</Link></li>
     }
@@ -95,4 +95,9 @@ function getCookie(cname) {
     }
   }
   return "";
+}
+function eraseCookie(name) {   
+  document.cookie = name+'=; Max-Age=-99999999;';  
+  window.location.reload();
+  window.location.href="/"
 }
