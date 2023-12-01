@@ -1,25 +1,27 @@
 package account;
+
 import java.sql.*;
 
 public class JDBC {
-  public int registerUser(String username, String password, String firstname, String lastname, String prefname, boolean shortterm, boolean longterm, Double gpa, Integer year) throws ClassNotFoundException {
+  public ResponseMessage registerUser(String username, String password, String firstname, String lastname, String prefname, boolean shortterm, boolean longterm, Double gpa, Integer year) throws ClassNotFoundException {
     Connection conn = null;
     PreparedStatement st = null;
     Statement st2 = null;
     ResultSet rs = null;
+    ResponseMessage rm = new ResponseMessage("success", "Successfully registered user");
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
-      conn = DriverManager.getConnection("jdbc:mysql://localhost/ProjectTesting?user=zhenyu&password=1234567890");
+      conn = DriverManager.getConnection("jdbc:mysql://localhost/CHATDB?user=root&password=fillin");
       st2 = conn.createStatement();
-      rs = st2.executeQuery("SELECT username FROM Users u");
+      rs = st2.executeQuery("SELECT USERNAME FROM Users u");
       while (rs.next()) {
-        String u = rs.getString("username");
+        String u = rs.getString("USERNAME");
         if (u.equals(username)) {
-          return 1;
+        	rm = new ResponseMessage("failure", "User name is already in use");
+        	return rm;
         } 
       }
-
-      st = conn.prepareStatement("INSERT INTO Users (username, password, firstname, lastname, prefname, shortterm, longterm, gpa, year) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+      st = conn.prepareStatement("INSERT INTO Users (USERNAME, PASSWORD, FIRSTNAME, LASTNAME, PREFNAME, SHORTTERM, LONGTERM, GPA, YEAR) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
       st.setString(1, username);
       st.setString(2, password);
       st.setString(3, firstname);
@@ -48,7 +50,7 @@ public class JDBC {
         System.out.println(sqle.getMessage());
       }
     }
-    return 0;
+    return rm;
   }
 
 
@@ -57,8 +59,8 @@ public class JDBC {
     PreparedStatement st = null;
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
-      conn = DriverManager.getConnection("jdbc:mysql://localhost/fillin?user=root&password=fillin");
-      st = conn.prepareStatement("UPDATE Users SET password=?, firstname=?, lastname=?, prefname=?, shortterm=?, longterm=?, gpa=?, year=? WHERE username=?");
+      conn = DriverManager.getConnection("jdbc:mysql://localhost/CHATDB?user=root&password=fillin");
+      st = conn.prepareStatement("UPDATE Users SET PASSWORD=?, FIRSTNAME=?, LASTNAME=?, PREFNAME=?, SHORTTERM=?, LONGTERM=?, GPA=?, YEAR=? WHERE USERNAME=?");
       st.setString(1, password);
       st.setString(2, firstname);
       st.setString(3, lastname);
@@ -96,15 +98,15 @@ public class JDBC {
     Account u = null;
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
-      conn = DriverManager.getConnection("jdbc:mysql://localhost/fillin?user=root&password=fillin");
+      conn = DriverManager.getConnection("jdbc:mysql://localhost/CHATDB?user=root&password=fillin");
       st = conn.createStatement();
-      rs = st.executeQuery("SELECT username, password, firstname, lastname, prefname, shortterm, longterm, gpa, year FROM Users u");
+      rs = st.executeQuery("SELECT USERNAME, PASSWORD, FIRSTNAME, LASTNAME, PREFNAME, SHORTTERM, LONGTERM, GPA, YEAR FROM Users u");
 
       while (rs.next()) {
-        String us = rs.getString("username");
+        String us = rs.getString("USERNAME");
         if (us.equals(username)) {
-          u = new Account(us, rs.getString("password"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("prefname"),
-            rs.getBoolean("shortterm"), rs.getBoolean("longterm"), rs.getDouble("gpa"), rs.getInt("year"));
+          u = new Account(us, rs.getString("PASSWORD"), rs.getString("FIRSTNAME"), rs.getString("LASTNAME"), rs.getString("PREFNAME"),
+            rs.getBoolean("SHORTTERM"), rs.getBoolean("LONGTERM"), rs.getDouble("GPA"), rs.getInt("YEAR"));
         }
       }
 
@@ -128,4 +130,44 @@ public class JDBC {
     }
     return u;
   }
+  
+  public ResponseContent loginUser(String username, String password) throws ClassNotFoundException {
+		Connection conn = null;
+		Statement st = null;
+		ResultSet rs = null;
+		ResponseContent rc = new ResponseContent("failure", "0");
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/CHATDB?user=root&password=fillin");
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT USERNAME, PASSWORD, UID FROM Users u");
+			while (rs.next()) {
+				String u = rs.getString("USERNAME");
+				String uid = rs.getString("UID");
+				String p = rs.getString("PASSWORD");
+				if (u.equals(username) && p.equals(password)) {
+					rc = new ResponseContent("success", uid); 
+				}
+			}
+		} catch (SQLException sqle) {
+			System.out.println(sqle.getMessage());
+		}
+		finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				} 
+				if (st != null) {
+					st.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException sqle) {
+				System.out.println(sqle.getMessage());
+			}
+		}
+		return rc;
+	}
+
 }
