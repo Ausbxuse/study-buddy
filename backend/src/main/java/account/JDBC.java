@@ -54,13 +54,13 @@ public class JDBC {
   }
 
 
-  public void modifyUser(String username, String password, String firstname, String lastname, String prefname, boolean shortterm, boolean longterm, Double gpa, Integer year) throws ClassNotFoundException {
+  public void modifyUser(String userid, String password, String firstname, String lastname, String prefname, boolean shortterm, boolean longterm, Double gpa, Integer year) throws ClassNotFoundException {
     Connection conn = null;
     PreparedStatement st = null;
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
       conn = DriverManager.getConnection("jdbc:mysql://localhost/CHATDB?user=root&password=fillin");
-      st = conn.prepareStatement("UPDATE Users SET PASSWORD=?, FIRSTNAME=?, LASTNAME=?, PREFNAME=?, SHORTTERM=?, LONGTERM=?, GPA=?, YEAR=? WHERE USERNAME=?");
+      st = conn.prepareStatement("UPDATE Users SET PASSWORD=?, FIRSTNAME=?, LASTNAME=?, PREFNAME=?, SHORTTERM=?, LONGTERM=?, GPA=?, YEAR=? WHERE UID=?");
       st.setString(1, password);
       st.setString(2, firstname);
       st.setString(3, lastname);
@@ -69,7 +69,7 @@ public class JDBC {
       st.setBoolean(6, longterm);
       st.setDouble(7, gpa);
       st.setInt(8, year);
-      st.setString(9, username); 
+      st.setInt(9, Integer.parseInt(userid)); 
       st.executeUpdate();
     }
     catch (SQLException sqle) {
@@ -91,7 +91,7 @@ public class JDBC {
     }
   }
 
-  public Account userInfo(String username) throws ClassNotFoundException {
+  public Account userInfo(String userid) throws ClassNotFoundException {
     Connection conn = null;
     Statement st = null;
     ResultSet rs = null;
@@ -100,12 +100,12 @@ public class JDBC {
       Class.forName("com.mysql.cj.jdbc.Driver");
       conn = DriverManager.getConnection("jdbc:mysql://localhost/CHATDB?user=root&password=fillin");
       st = conn.createStatement();
-      rs = st.executeQuery("SELECT USERNAME, PASSWORD, FIRSTNAME, LASTNAME, PREFNAME, SHORTTERM, LONGTERM, GPA, YEAR FROM Users u");
+      rs = st.executeQuery("SELECT UID, USERNAME, PASSWORD, FIRSTNAME, LASTNAME, PREFNAME, SHORTTERM, LONGTERM, GPA, YEAR FROM Users u");
 
       while (rs.next()) {
-        String us = rs.getString("USERNAME");
-        if (us.equals(username)) {
-          u = new Account(us, rs.getString("PASSWORD"), rs.getString("FIRSTNAME"), rs.getString("LASTNAME"), rs.getString("PREFNAME"),
+        int us = rs.getInt("UID");
+        if (us == Integer.parseInt(userid)) {
+          u = new Account(rs.getString("USERNAME"), rs.getString("PASSWORD"), rs.getString("FIRSTNAME"), rs.getString("LASTNAME"), rs.getString("PREFNAME"),
             rs.getBoolean("SHORTTERM"), rs.getBoolean("LONGTERM"), rs.getDouble("GPA"), rs.getInt("YEAR"));
         }
       }
@@ -169,5 +169,4 @@ public class JDBC {
 		}
 		return rc;
 	}
-
 }
