@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet{
 		resp.addHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, HEAD");
 		resp.addHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept");
 		resp.addHeader("Access-Control-Max-Age", "1728000");
-		ResponseContent content = new ResponseContent("success","123456");
+		ResponseContent content = new ResponseContent("success","1");
 		Gson gson = new Gson();
 		resp.setContentType("application/json");
 		resp.getWriter().print(gson.toJson(content));

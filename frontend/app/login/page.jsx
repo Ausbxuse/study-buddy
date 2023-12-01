@@ -58,6 +58,7 @@ async function postData(url = "", data = {}) {
     const result = await response.json();
     if(result.state == "success"){
       setCookie("login", "true", 1);
+      setCookie("uid", result.token, 1);
       window.location.href = '/';
       this.setState({login: true});
     }else{
