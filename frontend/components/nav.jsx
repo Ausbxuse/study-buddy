@@ -6,6 +6,20 @@ import { Sling as Hamburger } from 'hamburger-react'
 
 export default function Nav({ children }) {
   const [showMobileNav, setShowMobileNav] = useState(false);
+  const loginToggle = () => {
+    if(getCookie("login") == "true"){
+      return;
+    }else{
+      return <li><Link href="/login">Login/Signup</Link></li>
+    }
+  }
+  const loginToggle2 = () => {
+    if(getCookie("login") == "true"){
+      return;
+    }else{
+      return <li><Link href="/login">Login</Link></li>
+    }
+  }
   return (
     <>
       <div className={styles.headerContainer}>
@@ -20,7 +34,7 @@ export default function Nav({ children }) {
             <li><Link href="/">Home</Link></li>
             <li><Link href="/discover">Discover</Link></li>
             <li><Link href="/studyHall">Study Hall</Link></li>
-            <li><Link href="/login">Login</Link></li>
+            {loginToggle2()}
           </ul>
           <div className={styles.mobileNav}>
             <Link href="/">
@@ -44,7 +58,7 @@ export default function Nav({ children }) {
         <div className={!showMobileNav ? styles.mobileNavList : styles.mobileNavListActive}>
           <li><Link href="/discover">Discover</Link></li>
           <li><Link href="/studyhall">Study Hall</Link></li>
-          <li><Link href="/login">Login/Signup</Link></li>
+          {loginToggle()}
           <li><Link href="/account">Account</Link></li>
         </div>
       </div>
@@ -52,4 +66,19 @@ export default function Nav({ children }) {
       <main>{children}</main>
     </>
   )
+}
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }

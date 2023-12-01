@@ -57,10 +57,16 @@ async function postData(url = "", data = {}) {
     });
     const result = await response.json();
     if(result.state == "success"){
-      document.cookie = "authToken=" + result.token;
-      window.location.href = '/home';
+      setCookie("login", "true", 1);
+      window.location.href = '/';
       this.setState({login: true});
     }else{
       alert("Incorrect Login information");
     }
+}
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
