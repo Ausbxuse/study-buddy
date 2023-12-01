@@ -21,7 +21,12 @@ public class PublicChatroomQuery extends HttpServlet {
         JsonArray chatroomList = new JsonArray();
         Gson gson = new Gson();
         
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:databaseName", "username", "password");
+        try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/CHATDB", "root", "PASSWORD");
              PreparedStatement stmt = conn.prepareStatement("SELECT CID, NAME FROM CHATROOMS WHERE PRIVATE = 0");
              ResultSet rs = stmt.executeQuery()) {
             

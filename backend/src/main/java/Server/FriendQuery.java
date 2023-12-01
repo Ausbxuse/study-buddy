@@ -25,8 +25,13 @@ public class FriendQuery extends HttpServlet {
         String sql = "SELECT u.* FROM USERS u " +
                      "JOIN FRIENDS f ON u.UID = f.FUID " +
                      "WHERE f.UID = ?";
-
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:dabaseName", "username", "password");
+        
+        try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/CHATDB", "root", "PASSWORD");
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, Integer.parseInt(userId));
