@@ -8,20 +8,25 @@ export default function Signup() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
       <Nav></Nav>
-      <div class="w-full max-w-sm">
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 center" onSubmit={signup}>
+      <div className="w-full max-w-sm">
+        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 center" onSubmit={signup}>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
               Username
             </label>
             <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="username" type="text" placeholder="Username" />
           </div>
+          {/*
+
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
               Email
             </label>
             <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="email" type="email" placeholder="Email" />
           </div>
+
+
+          */}
           <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstname">
               First Name
@@ -41,16 +46,28 @@ export default function Signup() {
             <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="prefname" type="text" placeholder="Preferred Name" />
           </div>
           <div className="mb-2">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="gpa">
+              gpa
+            </label>
+            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="gpa" type="text" placeholder="gpa" />
+          </div>
+          <div className="mb-2">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="year">
+              year
+            </label>
+            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="year" type="text" placeholder="year" />
+          </div>
+          <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="shortterm">
               Shortterm
             </label>
             <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="shortterm" type="text" placeholder="Preferred Name" />
           </div>
           <div className="mb-2">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="longgterm">
-              Preferred Name
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="longterm">
+              longterm
             </label>
-            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="prefname" type="text" placeholder="Preferred Name" />
+            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="longterm" type="text" placeholder="Longterm" />
           </div>
           <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
@@ -58,19 +75,19 @@ export default function Signup() {
             </label>
             <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="password" type="password" placeholder="Password" />
           </div>
-          <div class="flex items-center justify-center">
-            <div id="error-message" class="text-sm text-red-500" style={{ display: 'block' }}>Error message</div>
+          <div className="flex items-center justify-center">
+            <div id="error-message" className="text-sm text-red-500" style={{ display: 'block' }}>Error message</div>
           </div>
-          <div class="flex items-center justify-between">
+          <div className="flex items-center justify-between">
             <button type="submit" className="btn bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onSubmit={signup}>
               Sign Up
             </button>
-            <a class="inline-block align-baseline font-regular text-xs text-blue-500 hover:text-blue-800" href="/login">
+            <a className="inline-block align-baseline font-regular text-xs text-blue-500 hover:text-blue-800" href="/login">
               Already have an account? Login
             </a>
           </div>
         </form>
-        <p class="text-center text-gray-500 text-xs">
+        <p className="text-center text-gray-500 text-xs">
           &copy;2023 Study Buddy Co. All rights reserved.
         </p>
       </div>
@@ -83,16 +100,16 @@ function signup(event) {
 
   const form = event.currentTarget;
 
-  // const username = form.username.value;
-  // // const email = form.email.value;
-  // const password = form.password.value;
-  // const firstname = form.firstname.value;
-  // const lastname = form.lastname.value;
-  // const prefname = form.prefname.value;
-  // const shortterm = form.shortterm.value;
-  // const longterm = form.longterm.value;
-  // const gpa = form.gpa.value;
-  // const year = form.year.value;
+  const my_username = form.username.value;
+  // const my_email = form.email.value;
+  const my_password = form.password.value;
+  const my_firstname = form.firstname.value;
+  const my_lastname = form.lastname.value;
+  const my_prefname = form.prefname.value;
+  const my_shortterm = form.shortterm.value;
+  const my_longterm = form.longterm.value;
+  const my_gpa = form.gpa.value;
+  const my_year = form.year.value;
 
   // postData("http://localhost:8080/Project-testing/UserServlet", { username, password, firstname, lastname, prefname, shortterm, longterm, gpa, year })
   // postData("http://localhost:8080/Project-testing/UserServlet&action=Register", { username: "username", password: "password", firstname: "firstname", lastname: "lastname", prefname: "prefname", shortterm: "shorterm", longterm: "longtermdf", gpa: "gpa", year: "year" })
@@ -109,21 +126,22 @@ function signup(event) {
   //   });
   getData("http://localhost:8080/Project-testing/UserServlet", {
     action: "Register",
-    username: "username",
-    password: "password",
-    firstname: "firstname",
-    lastname: "lastname",
-    prefname: "prefname",
-    shortterm: true,
-    longterm: false,
-    gpa: 4.1,
-    year: 1
+    username: my_username,
+    password: my_password,
+    firstname: my_firstname,
+    lastname: my_lastname,
+    prefname: my_prefname,
+    shortterm: my_shortterm,
+    longterm: my_longterm,
+    gpa: my_gpa,
+    year: my_year
   })
     .then(response => {
-      // Handle response
+      console.log(response)
+    }).then(data => {
+      console.log(data)
     })
     .catch(error => {
-      // Handle error
     });
 }
 
@@ -138,7 +156,7 @@ function signup(event) {
 //   return response.json();
 // }
 
-function getData(url = "", params = {}) {
+async function getData(url = "", params = {}) {
   // Construct query string
   const queryString = new URLSearchParams(params).toString();
   const fullUrl = `${url}?${queryString}`;
@@ -149,7 +167,7 @@ function getData(url = "", params = {}) {
       "Content-Type": "application/json"
     }
   })
-    .then(response => response.json());
+  // .then(response => response.json());
 }
 
 
