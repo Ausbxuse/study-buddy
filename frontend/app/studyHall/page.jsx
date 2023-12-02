@@ -8,7 +8,7 @@ export default function studyHall() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   if(users.length == 0){
-    doGet("http://localhost:8080/TemporaryServer/fetchChatroom").then(
+    doGet("http://localhost:8080/study-buddy-server/PublicChatroomQuery").then(
     (out) => {
       console.log(out);
       setUsers(out.token);

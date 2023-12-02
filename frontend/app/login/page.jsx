@@ -25,7 +25,7 @@ export default function Login() {
       </div>
       <div class="flex items-center justify-between">
         <button type="button" className="btn bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={(e) => {
-          login(document.getElementsByName("username").value,document.getElementsByName("password").value)}}>
+          login(document.getElementsByName("username")[0].value,document.getElementsByName("password")[0].value)}}>
           Sign In
         </button>
         <a type="button" className="btn bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline" href="/signup">
@@ -43,7 +43,7 @@ export default function Login() {
 }
 
 function login(username, password){
-  var result = postData("http://localhost:8080/TemporaryServer/login?username="+username+"&password="+password).then(
+  var result = doGet("http://localhost:8080/study-buddy-server/login?username="+username+"&password="+password).then(
     (result) => {
       if(result.state == "success"){
         setCookie("login", "true", 1);
