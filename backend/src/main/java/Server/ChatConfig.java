@@ -1,4 +1,4 @@
-package final_proj;
+package Server;
 
 import javax.websocket.server.ServerEndpointConfig.Configurator;
 
