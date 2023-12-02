@@ -43,27 +43,23 @@ export default function Login() {
 }
 
 function login(username, password){
-  var result = postData("http://localhost:8080/TemporaryServer/login", {username,password});
-}
-async function postData(url = "", data = {}) {
-    const response = await fetch(url, {
-        method: "POST",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {"Content-Type": "application/json",},
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
-        body: JSON.stringify(data),
-    });
-    const result = await response.json();
-    if(result.state == "success"){
-      setCookie("login", "true", 1);
-      setCookie("uid", result.token, 1);
-      window.location.href = '/';
-      this.setState({login: true});
-    }else{
-      alert("Incorrect Login information");
+  var result = postData("http://localhost:8080/TemporaryServer/login?username="+username+"&password="+password).then(
+    (result) => {
+      if(result.state == "success"){
+        setCookie("login", "true", 1);
+        setCookie("uid", result.token, 1);
+        window.location.href = '/';
+        this.setState({login: true});
+      }else{
+        alert("Incorrect Login information");
+      }
     }
+  );
+}
+async function doGet(url = ""){
+  var response = await fetch(url, {method:"GET"});
+  const result = await response.json();
+  return result;
 }
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();

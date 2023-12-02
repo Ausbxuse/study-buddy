@@ -10,7 +10,7 @@ export default function friendList() {
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
   if (users.length == 0) {
-    postData("http://localhost:8080/TemporaryServer/fetchFriends").then(
+    doGet("http://localhost:8080/TemporaryServer/FriendQuery?userId="+getCookie("uid")).then(
       (out) => {
         console.log(out);
         setUsers(out);
@@ -20,7 +20,7 @@ export default function friendList() {
     );
   }
   if (requests.length == 0) {
-    postData("http://localhost:8080/TemporaryServer/fetchFriendRequests").then(
+    doGet("http://localhost:8080/TemporaryServer/fetchFriendRequests?userId=" + getCookie("uid")).then(
       (out) => {
         console.log(out);
         setRequests(out);
@@ -34,10 +34,9 @@ export default function friendList() {
     if (loading) {
       return (<div>Loading...</div>);
     } else {
-      return users.map(({ uid, fName, lName, status }) => {
-        return <tr key={uid} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-          <td class="px-6 py- text-lg">{fName} {lName}</td>
-          <td class="px-6 py- text-lg">{status}</td>
+      return users.map(({ UID, FIRSTNAME, LASTNAME }) => {
+        return <tr key={UID} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <td class="px-6 py- text-lg">{FIRSTNAME} {LASTNAME}</td>
         </tr>
       })
     }
@@ -46,13 +45,13 @@ export default function friendList() {
     if (loading) {
       return (<div>Loading...</div>);
     } else {
-      return users.map(({ uid, fName, lName }) => {
-        return <tr key={uid} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-          <td class="px-6 py- text-lg">{fName} {lName}</td>
+      return users.map(({ UID, FIRSTNAME, LASTNAME }) => {
+        return <tr key={UID} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <td class="px-6 py- text-lg">{FIRSTNAME} {LASTNAME}</td>
           <td class="px-6 py-4 text-lg">
             <button type="button" onClick={(e) => {
-              acceptButton({ uid })
-            }} class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" value={uid}>Accept</button>
+              acceptButton({ UID })
+            }} class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" value={UID}>Accept</button>
           </td>
         </tr>
       })
@@ -65,7 +64,6 @@ export default function friendList() {
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <th scope="col" class="px-6 py-3 text-lg">Name</th>
-            <th scope="col" class="px-6 py-3 text-lg">Status</th>
           </thead>
           <tbody>{renderUsers()}</tbody>
         </table>
@@ -94,25 +92,28 @@ export default function friendList() {
       <div>{renderTable2()}</div>
     </div></main>)
 }
-async function postData(url = "", data = {}) {
-  const response = await fetch(url, {
-    method: "POST",
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: { "Content-Type": "application/json", },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
-    body: JSON.stringify(data),
-  });
+async function doGet(url = ""){
+  var response = await fetch(url, {method:"GET"});
   const result = await response.json();
-  if (result.state == "success") {
-    console.log(result.token);
-    return result.token;
-  } else {
-    alert("Cannot fetch");
-  }
+  return result;
 }
 
 async function acceptButton(uid) {
-  postData("http://localhost:8080/TemporaryServer/acceptRequest", uid);
+  doGet("http://localhost:8080/TemporaryServer/acceptRequest?uid=" + getCookie("uid") + "&fuid=" + uid);
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }
