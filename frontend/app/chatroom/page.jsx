@@ -77,6 +77,7 @@ export default function ChatRoom() {
     <main className="pt-14">
       <Nav />
       <div className="flex flex-col h-screen p-4">
+        <div className="flex flex-col flex-grow overflow-auto bg-white rounded-lg shadow border border-gray-200 p-4 space-y-2"></div>
         <div className="flex flex-col flex-grow overflow-auto bg-white rounded-lg shadow border border-gray-200 p-4 space-y-2">
           {messages.map((message, index) => (
             <div key={index} className={`rounded-lg max-w-xs p-2 ${message.username === currentUser ? 'ml-auto bg-blue-500 text-white' : 'mr-auto bg-gray-100 text-gray-800'}`}>
