@@ -1,21 +1,67 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Nav from '../../components/nav';
 import '../globals.css';
 
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
 export default function ChatRoom() {
-  // TODO: retrieve messages from backend
   const [messages, setMessages] = useState([
     { username: 'TheShy', text: 'Nihao!' },
     { username: 'Zeus', text: 'Hi there!' },
   ]);
   const [newMessage, setNewMessage] = useState('');
-  const currentUser = 'You';
+  const ws = useRef(null);
+
+  useEffect(() => {
+    const serverUrl = `ws://localhost:8080/Project-testing/chat/1`;
+    ws.current = new WebSocket(serverUrl);
+
+    ws.current.onopen = () => {
+    };
+
+
+    ws.current.onmessage = (event) => {
+      try {
+        const parsedData = JSON.parse(event.data);
+        if (parsedData && parsedData.message) {
+          const innerMessage = JSON.parse(parsedData.message);
+          console.log("Inner message:", innerMessage);
+          setMessages((prevMessages) => [...prevMessages, innerMessage]);
+        }
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+      }
+    };
+
+
+    return () => {
+      ws.current.close();
+    };
+  }, []);
+
+  // const currentUser = 'You';
+  const currentUser = getCookie("uid");
 
   const sendMessage = () => {
     if (newMessage.trim() !== '') {
-      setMessages([...messages, { username: currentUser, text: newMessage }]);
+      const messageData = { username: currentUser, text: newMessage };
+      ws.current.send(JSON.stringify(messageData));
       setNewMessage('');
     }
   };
@@ -29,7 +75,7 @@ export default function ChatRoom() {
 
   return (
     <main className="pt-14">
-      <Nav></Nav>
+      <Nav />
       <div className="flex flex-col h-screen p-4">
         <div className="flex flex-col flex-grow overflow-auto bg-white rounded-lg shadow border border-gray-200 p-4 space-y-2">
           {messages.map((message, index) => (
@@ -57,16 +103,4 @@ export default function ChatRoom() {
       </div>
     </main>
   );
-}
-
-
-async function postData(url = "", data = {}) {
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  });
-  return response.json();
 }
