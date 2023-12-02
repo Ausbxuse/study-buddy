@@ -1,6 +1,7 @@
-package final_proj;
+package Server;
 
 import javax.websocket.*;
+import com.google.gson.Gson;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class ChatEndpoint {
     @OnOpen
     public void onOpen(Session session, @PathParam("room") String room) {
         roomSessions.computeIfAbsent(room, k -> new ConcurrentHashMap<>()).put(session.getId(), session);
-        sendMessageToRoom(room, "User " + session.getId() + " has entered the room " + room);
+        //sendMessageToRoom(room, "User " + session.getId() + " has entered the room " + room);
     }
 
     @OnClose
@@ -29,21 +30,26 @@ public class ChatEndpoint {
 
     @OnMessage
     public void onMessage(String message, Session session, @PathParam("room") String room) {
-        sendMessageToRoom(room, "User " + session.getId() + ": " + message);
+        sendMessageToRoom(room, message);
     }
+
 
     private void sendMessageToRoom(String room, String message) {
         ConcurrentHashMap<String, Session> sessions = roomSessions.get(room);
         if (sessions != null) {
+            Gson gson = new Gson();
+            String formattedMessage = gson.toJson(Map.of("message", message));
+
             sessions.values().forEach(session -> {
                 try {
-                    session.getBasicRemote().sendText(message);
+                    session.getBasicRemote().sendText(formattedMessage);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
         }
     }
+
     
     public static Map<String, Integer> getRoomCounts() {
         return roomSessions.entrySet().stream()
